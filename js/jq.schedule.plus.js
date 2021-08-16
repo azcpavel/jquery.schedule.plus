@@ -196,6 +196,7 @@
 
                 // 削除ボタンの追加
                 var $deleteBtn = jQuery('<span style="float: right; padding: 5px">✖</span>');
+                if (setting.allowModifyTask)
                 $deleteBtn.click(function () {
                     // LIN 削除した列の高さを調整する
                     var sc_key = $bar.data("sc_key");
@@ -219,7 +220,10 @@
 
                 // ブロック内容の追加
                 var $content = jQuery('<span class="head"><span class="startTime time"></span>～<span class="endTime time"></span></span><span class="text"></span>');
-                var $bar = jQuery('<div class="sc_Bar ' + data['class'] + '"></div>').append($deleteBtn).append($content);
+                var $bar = jQuery('<div class="sc_Bar ' + data['class'] + '"></div>');
+                if (setting.allowModifyTask)
+                    $bar.append($deleteBtn);
+                $bar.append($content);
                 var stext = startDate + ' ' + element.formatTime(data["start"]);
                 var etext = endDate + ' ' + element.formatTime(data["end"]);
                 var snum = element.getScheduleCount(data["timeline"]);
