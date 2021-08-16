@@ -38,7 +38,9 @@
             timeDrag: null,
             delete: null,
             nextNo: 1, // LIN 追加機能 - 複数選択初期番号
-            debug: "" // debug selecter
+            debug: "", // debug selecter
+            allowModifyTask: true, //Ahsan Zahid
+            newClass: "newAdd", //Ahsan Zahid
         };
 
         this.calcStringTime = function (string) {
@@ -255,6 +257,7 @@
 
                 // var $node = $element.find(".sc_Bar");
                 // move bar.
+                if (setting.allowModifyTask)
                 $bar.draggable({
                     grid: [setting.widthTimeX, setting.timeLineY],
                     containment: ".sc_main",
@@ -340,6 +343,7 @@
                         }
                     },
                 });
+                if (setting.allowModifyTask)
                 $bar.resizable({
                     handles: 'e',
                     grid: [setting.widthTimeX, setting.timeLineY],
@@ -516,13 +520,13 @@
                         var startTime = $startElement.data('time_start');
                         var endDate = ($endElement === undefined) ? startDate : $endElement.data('date');
                         var endTime = ($endElement === undefined) ? $startElement.data('time_end') : $endElement.data('time_end');
-                        if (!$startElement.hasClass('cant_res') && ($endElement == undefined || !$endElement.hasClass('cant_res'))) {
+                        if (element.setting.allowModifyTask && !$startElement.hasClass('cant_res') && ($endElement == undefined || !$endElement.hasClass('cant_res'))) {
                             var timelintnum = (lineId - 1);
                             var addTempData = {
                                 timeline: timelintnum,
                                 start: element.calcStringTime(startTime),
                                 end: element.calcStringTime(endTime),
-                                class: 'newAdd',
+                                class: element.setting.newClass,
                                 text: addNo,
                                 data: {
                                     'No': addNo
@@ -554,7 +558,7 @@
                         var nowX = event.pageX;
                         var setSelectedTime = function ($element, nowX) {
                             var elementPositionX = $element.offset().left;
-                            if (startX <= nowX) {
+                            if (element.setting.allowModifyTask && startX <= nowX) {
                                 if (elementPositionX <= nowX) {
                                     $element.toggleClass("selected_time", true);
                                     $element.toggleClass('selected_no_' + addNo, true);
