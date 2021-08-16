@@ -11,7 +11,7 @@
             rows: {},
             startDate: today,
             endDate: today,
-            weekday: ['日', '月', '火', '水', '木', '金', '土'], // LIN 追加機能 - DOW表示
+            weekday: ['Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.'], // LIN 追加機能 - DOW表示
             today: today,
             nowTime: '24:00',
             startTime: "07:00",
